@@ -1,0 +1,260 @@
+:root {
+  color-scheme: dark;
+  --bg-top: #0f172a;
+  --bg-bottom: #1d4ed8;
+  --glass: rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --text-main: #e2e8f0;
+  --text-muted: #cbd5e1;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), transparent 30%),
+    linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+.hero-card,
+.status-card,
+.glass {
+  backdrop-filter: blur(18px);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+}
+
+.hero-card {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  border-radius: 28px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero-copy h1 {
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.05;
+}
+
+.subcopy,
+.helper-text,
+.forecast-header p,
+.forecast-condition,
+.metric span,
+.feels-like,
+.search-label {
+  color: var(--text-muted);
+}
+
+.search-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.search-row input {
+  flex: 1;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: rgba(15, 23, 42, 0.7);
+  color: var(--text-main);
+}
+
+.search-row input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.search-row button {
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: white;
+  font-weight: 700;
+  padding: 1rem 1.35rem;
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.search-row button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.status-card {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 18px;
+  color: var(--text-muted);
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.5rem;
+}
+
+.current-card,
+.forecast-card {
+  border-radius: 28px;
+  padding: 1.5rem;
+}
+
+.current-header,
+.forecast-item,
+.forecast-header,
+.temperature-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.location {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.current-header h2,
+.forecast-header h3 {
+  margin: 0.35rem 0 0;
+}
+
+.weather-icon {
+  font-size: 3rem;
+}
+
+.temperature {
+  margin: 1.5rem 0 0.5rem;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+}
+
+.unit {
+  font-size: 0.4em;
+  vertical-align: super;
+  margin-left: 0.25rem;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.metric {
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.metric strong,
+.forecast-temp {
+  font-size: 1.05rem;
+}
+
+.forecast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.forecast-item {
+  align-items: center;
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.forecast-day,
+.forecast-condition,
+.forecast-temp {
+  margin: 0;
+}
+
+.forecast-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.forecast-icon {
+  font-size: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 840px) {
+  .hero-card,
+  .weather-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    width: min(100% - 1rem, 1120px);
+    padding-top: 1rem;
+  }
+
+  .hero-card,
+  .current-card,
+  .forecast-card {
+    padding: 1.2rem;
+    border-radius: 22px;
+  }
+
+  .search-row,
+  .temperature-row {
+    flex-direction: column;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
