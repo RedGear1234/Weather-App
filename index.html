@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Now</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-card surface-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Weather App</p>
+          <h1>Meet Sunny, your mascot guide to a more playful weather dashboard.</h1>
+          <p class="subcopy">
+            Search for any city to explore live conditions, local time, sunrise and sunset,
+            precipitation odds, and a beautifully illustrated forecast scene.
+          </p>
+
+          <div class="hero-highlights" aria-label="App highlights">
+            <div class="highlight-pill">Mascot-led design</div>
+            <div class="highlight-pill">Hourly trend cards</div>
+            <div class="highlight-pill">Interactive 5-day outlook</div>
+          </div>
+
+          <div class="preset-row" aria-label="Suggested cities">
+            <button class="preset-chip" type="button" data-city="San Francisco">San Francisco</button>
+            <button class="preset-chip" type="button" data-city="New York">New York</button>
+            <button class="preset-chip" type="button" data-city="London">London</button>
+            <button class="preset-chip" type="button" data-city="Tokyo">Tokyo</button>
+          </div>
+        </div>
+
+        <div class="hero-illustration" aria-hidden="true">
+          <div class="sky-orb"></div>
+          <div class="cloud cloud-back"></div>
+          <div class="cloud cloud-front"></div>
+          <div class="sunny-mascot">
+            <div class="mascot-face">
+              <span class="eye left"></span>
+              <span class="eye right"></span>
+              <span class="smile"></span>
+              <span class="cheek cheek-left"></span>
+              <span class="cheek cheek-right"></span>
+            </div>
+            <div class="sun-ray ray-1"></div>
+            <div class="sun-ray ray-2"></div>
+            <div class="sun-ray ray-3"></div>
+            <div class="sun-ray ray-4"></div>
+            <div class="sun-ray ray-5"></div>
+            <div class="sun-ray ray-6"></div>
+            <div class="sun-ray ray-7"></div>
+            <div class="sun-ray ray-8"></div>
+          </div>
+          <div class="floating-badge badge-top">
+            <span>Sunny says</span>
+            <strong>Take shades ☀️</strong>
+          </div>
+          <div class="floating-badge badge-bottom">
+            <span>Design mood</span>
+            <strong>Cloud candy sky</strong>
+          </div>
+        </div>
+
+        <form class="search-panel" id="search-form">
+          <div class="search-header">
+            <label class="search-label" for="city-input">Search a city</label>
+            <button id="unit-toggle" class="unit-toggle" type="button" aria-pressed="false">
+              Show °F
+            </button>
+          </div>
+
+          <div class="search-row">
+            <input
+              id="city-input"
+              name="city"
+              type="text"
+              placeholder="e.g. Seattle"
+              autocomplete="off"
+              required
+            />
+            <button id="submit-button" type="submit">Get weather</button>
+          </div>
+
+          <div class="recent-searches hidden" id="recent-searches-wrapper">
+            <p class="recent-label">Recent searches</p>
+            <div class="recent-list" id="recent-searches"></div>
+          </div>
+        </form>
+      </section>
+
+      <section class="status-card surface-panel" id="status-card" aria-live="polite">
+        Loading weather dashboard…
+      </section>
+
+      <section class="weather-grid hidden" id="weather-grid">
+        <article class="current-card surface-panel">
+          <div class="current-header">
+            <div>
+              <p class="location" id="location-name">--</p>
+              <h2 id="weather-summary">--</h2>
+              <p class="location-meta" id="location-meta">--</p>
+            </div>
+            <div class="weather-icon" id="weather-icon" aria-hidden="true">☀️</div>
+          </div>
+
+          <div class="temperature-row">
+            <div>
+              <p class="temperature">
+                <span id="current-temp">--</span><span class="unit" id="temperature-unit">°C</span>
+              </p>
+              <div class="feels-like">
+                Feels like <strong id="feels-like">--</strong><span class="inline-unit" id="feels-like-unit">°C</span>
+              </div>
+            </div>
+            <div class="headline-metric">
+              <span>Local time</span>
+              <strong id="local-time">--</strong>
+            </div>
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span>Humidity</span>
+              <strong id="humidity">--%</strong>
+            </div>
+            <div class="metric">
+              <span>Wind</span>
+              <strong id="wind">-- km/h</strong>
+            </div>
+            <div class="metric">
+              <span>Precipitation</span>
+              <strong id="precipitation">-- mm</strong>
+            </div>
+            <div class="metric">
+              <span>UV index</span>
+              <strong id="uv-index">--</strong>
+            </div>
+            <div class="metric">
+              <span>Sunrise</span>
+              <strong id="sunrise">--</strong>
+            </div>
+            <div class="metric">
+              <span>Sunset</span>
+              <strong id="sunset">--</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="stack-column">
+          <section class="forecast-card surface-panel">
+            <div class="forecast-header">
+              <div>
+                <h3>5-day forecast</h3>
+                <p>Daily condition, temperature range, and rain chance.</p>
+              </div>
+            </div>
+            <div class="forecast-list" id="forecast-list"></div>
+          </section>
+
+          <section class="hourly-card surface-panel">
+            <div class="forecast-header">
+              <div>
+                <h3>Next 8 hours</h3>
+                <p>Quick trend for temperature and precipitation probability.</p>
+              </div>
+            </div>
+            <div class="hourly-list" id="hourly-list"></div>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <template id="forecast-item-template">
+      <div class="forecast-item">
+        <div>
+          <p class="forecast-day"></p>
+          <p class="forecast-condition"></p>
+        </div>
+        <div class="forecast-meta">
+          <span class="forecast-rain"></span>
+          <span class="forecast-icon" aria-hidden="true"></span>
+          <strong class="forecast-temp"></strong>
+        </div>
+      </div>
+    </template>
+
+    <template id="hourly-item-template">
+      <div class="hourly-item">
+        <p class="hourly-time"></p>
+        <span class="hourly-icon" aria-hidden="true"></span>
+        <p class="hourly-temp"></p>
+        <p class="hourly-rain"></p>
+      </div>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
