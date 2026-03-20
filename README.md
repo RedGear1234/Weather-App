@@ -21,6 +21,14 @@ python3 -m http.server 4173
 
 Then open <http://localhost:4173>.
 
+## Deploy to Cloudflare
+
+This repo now includes a `wrangler.jsonc` file so Wrangler can upload the app as a static assets project.
+
+```bash
+npx wrangler versions upload
+```
+
 ## Data source
 
 This app uses Open-Meteo's geocoding and forecast APIs, so no API key is required.
